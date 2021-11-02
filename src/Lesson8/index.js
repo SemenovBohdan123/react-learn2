@@ -1,17 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
+// import classNames from 'classnames';
 // import { useForm, Controller } from 'react-hook-form'
 // import * as yup from 'yup'
 // import { yupResolver } from '@hookform/resolvers/yup'
 // import { createUseStyles } from 'react-jss';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 // import { List, Typography, Checkbox, Input, Button, Radio, } from 'antd';
-import { Box, Table, TableHead, TableRow, TableCell, TableBody, TextField, RadioGroup, FormControlLabel, Divider, Grid, MenuItem, InputLabel, Button, Select, IconButton, Radio, FormControl, FormLabel } from '@mui/material'
-import { Typography } from 'antd';
-import { CodeSharp } from '@mui/icons-material';
-import { number } from 'yup';
+import { Box, RadioGroup, FormControlLabel, Button, Radio, } from '@mui/material'
+// import { Typography } from 'antd';
+// import { CodeSharp } from '@mui/icons-material';
+// import { number } from 'yup';
 import useStyles from './styles';
+import { Typography } from 'antd';
 
 
 
@@ -1409,201 +1410,248 @@ import useStyles from './styles';
 //   )
 // }
 
-const CURRENCY_FROM = [
-  {
-    id: 1,
-    coefficient: 0.038,
-    name: 'UA'
-  },
-  {
-    id: 2,
-    coefficient: 0.014,
-    name: 'RUB'
-  },
-  {
-    id: 3,
-    coefficient: 1,
-    name: 'USA'
-  }
-]
-const CURRENCY_TO = [
-  {
-    id: 1,
-    coefficient: 26.44,
-    name: 'UA'
-  },
-  {
-    id: 2,
-    coefficient: 71.21,
-    name: 'RUB',
-  },
-  {
-    id: 3,
-    coefficient: 1,
-    name: 'USA',
-  }
-]
-
-const Task15Func = () => {
-  const classes = useStyles()
-
-  const currencysNumber = useRef(null)
-
-  const [currencies, setCurrencys] = useState({
-    from: 0.038,
-    to: 1,
-    name: {
-      from: 'UA',
-      to: 'USA'
-    },
-    currency: null
-  })
-
-
-  const handleSelect = (event) => {
-    const copyCurrencys = { ...currencies };
-
-    copyCurrencys.name[event.target.name] = event.target.value;
-    copyCurrencys[event.target.name] =
-      (event.target.name === 'from' ? CURRENCY_FROM : CURRENCY_TO).find(item => (
-        item.name === event.target.value)
-      ).coefficient;
-    setCurrencys(copyCurrencys);
-  }
-
-  const calculateCurrency = () => {
-    const copyCurrencys = { ...currencies };
-
-    if (currencies.name.from !== currencies.name.to) {
-
-      const currency = Number(currencysNumber.current.value) * currencies.from * currencies.to;
-
-      copyCurrencys.currency = Number(currency.toFixed(2));
-      setCurrencys(copyCurrencys);
-    }
-
-  }
-
-  return (
-    <Box className={classes.root}>
-      <TextField
-        type="number"
-        variant="standard"
-        inputRef={currencysNumber}
-      />
-      <Select
-        name="from"
-        onChange={(event) => handleSelect(event)}
-        value={currencies.name.from}
-        variant="standard"
-      >
-        {CURRENCY_FROM.map((currency) =>
-          <MenuItem
-            value={currency.name}
-            key={currency.id}
-          >
-            {currency.name}
-          </MenuItem>)}
-      </Select>
-      <Select
-        name="to"
-        onChange={(event) => handleSelect(event)}
-        value={currencies.name.to}
-        variant="standard"
-      >
-        {CURRENCY_TO.map((currency) =>
-          <MenuItem
-            value={currency.name}
-            key={currency.id}
-          >
-            {currency.name}
-          </MenuItem>)}
-      </Select>
-      <Button
-        onClick={calculateCurrency}
-      >
-        Конвертировать
-      </Button>
-      <Typography>
-        {currencies.currency}
-      </Typography>
-    </Box>
-  )
-}
-
-// const TESTS = [
+// const CURRENCY_FROM = [
 //   {
-//     question: 'question1',
-//     answers: [
-//       'Ответ1',
-//       'Ответ2',
-//       'Ответ3',
-//       'Ответ4',
-//       'Ответ5',
-//     ],
-//     right: 3,
+//     id: 1,
+//     coefficient: 0.038,
+//     name: 'UA'
 //   },
 //   {
-//     question: 'question2',
-//     answers: [
-//       'Ответ1',
-//       'Ответ2',
-//       'Ответ3',
-//       'Ответ4',
-//       'Ответ5',
-//     ],
-//     right: 5,
+//     id: 2,
+//     coefficient: 0.014,
+//     name: 'RUB'
 //   },
 //   {
-//     question: 'question3',
-//     answers: [
-//       'Ответ1',
-//       'Ответ2',
-//       'Ответ3',
-//       'Ответ4',
-//       'Ответ5',
-//     ],
-//     right: 1,
+//     id: 3,
+//     coefficient: 1,
+//     name: 'USA'
+//   }
+// ]
+// const CURRENCY_TO = [
+//   {
+//     id: 1,
+//     coefficient: 26.44,
+//     name: 'UA'
+//   },
+//   {
+//     id: 2,
+//     coefficient: 71.21,
+//     name: 'RUB',
+//   },
+//   {
+//     id: 3,
+//     coefficient: 1,
+//     name: 'USA',
 //   }
 // ]
 
+// const Task15Func = () => {
+//   const classes = useStyles()
 
-// const Task16Func = () => {
-//   const [test, setTest] = useState({
-//     question1: null,
-//     question2: null,
-//     question3: null,
+//   const currencysNumber = useRef(null)
+
+//   const [currencies, setCurrencys] = useState({
+//     from: 0.038,
+//     to: 1,
+//     name: {
+//       from: 'UA',
+//       to: 'USA'
+//     },
+//     currency: null
 //   })
 
-//   const handleRadio = (event, field) => {
-//     const copyTest = { ...test }
+
+//   const handleSelect = (event) => {
+//     const copyCurrencys = { ...currencies };
+
+//     copyCurrencys.name[event.target.name] = event.target.value;
+//     copyCurrencys[event.target.name] =
+//       (event.target.name === 'from' ? CURRENCY_FROM : CURRENCY_TO).find(item => (
+//         item.name === event.target.value)
+//       ).coefficient;
+//     setCurrencys(copyCurrencys);
 //   }
+
+//   const calculateCurrency = () => {
+//     const copyCurrencys = { ...currencies };
+
+//     if (currencies.name.from !== currencies.name.to) {
+
+//       const currency = Number(currencysNumber.current.value) * currencies.from * currencies.to;
+
+//       copyCurrencys.currency = Number(currency.toFixed(2));
+//       setCurrencys(copyCurrencys);
+//     }
+
+//   }
+
 //   return (
-//     <FormControl >
-//       {TESTS.map((questions) =>
-//         <Box>
-//           <FormLabel
-//             name={questions.question}
-//             component="legend"
+//     <Box className={classes.root}>
+//       <TextField
+//         type="number"
+//         variant="standard"
+//         inputRef={currencysNumber}
+//       />
+//       <Select
+//         name="from"
+//         onChange={(event) => handleSelect(event)}
+//         value={currencies.name.from}
+//         variant="standard"
+//       >
+//         {CURRENCY_FROM.map((currency) =>
+//           <MenuItem
+//             value={currency.name}
+//             key={currency.id}
 //           >
-//             {questions.question}
-//           </FormLabel>
-//           <RadioGroup
-//             name={questions.question}
-//             onChange={(event) => handleRadio(questions.question)}
-//             row>
-//             {questions.answers.map((answer, key) =>
-//               <FormControlLabel
-//                 value={key}
-//                 control={<Radio />}
-//                 label={answer} />
-//             )}
-//           </RadioGroup>
-//         </Box>
-//       )}
-//       <Button onClick={() => { }}>Check test</Button>
-//     </FormControl >
+//             {currency.name}
+//           </MenuItem>)}
+//       </Select>
+//       <Select
+//         name="to"
+//         onChange={(event) => handleSelect(event)}
+//         value={currencies.name.to}
+//         variant="standard"
+//       >
+//         {CURRENCY_TO.map((currency) =>
+//           <MenuItem
+//             value={currency.name}
+//             key={currency.id}
+//           >
+//             {currency.name}
+//           </MenuItem>)}
+//       </Select>
+//       <Button
+//         onClick={calculateCurrency}
+//       >
+//         Конвертировать
+//       </Button>
+//       <Typography>
+//         {currencies.currency}
+//       </Typography>
+//     </Box>
 //   )
 // }
 
-export default Task15Func
+const TESTS = [
+  {
+    question: "question1",
+    answers: [
+      'Ответ 1',
+      'Ответ 2',
+      'Ответ 3',
+      'Ответ 4',
+      'Ответ 5',
+    ],
+    right: 3,
+  },
+  {
+    question: "question2",
+    answers: [
+      'Ответ 1',
+      'Ответ 2',
+      'Ответ 3',
+      'Ответ 4',
+      'Ответ 5',
+    ],
+    right: 5,
+  },
+  {
+    question: "question3",
+    answers: [
+      'Ответ 1',
+      'Ответ 2',
+      'Ответ 3',
+      'Ответ 4',
+      'Ответ 5',
+    ],
+    right: 1,
+  }
+]
+
+
+const Task16Func = () => {
+  const classes = useStyles()
+  const [test, setTest] = useState({
+    question1: {
+      value: 3,
+      chosenValue: null,
+      right: null
+    },
+    question2: {
+      value: 5,
+      chosenValue: null,
+      right: null
+    },
+    question3: {
+      value: 1,
+      chosenValue: null,
+      right: null
+    }
+  })
+
+  const handleChange = (event) => {
+    const copyTest = { ...test }
+
+    copyTest[event.target.name].chosenValue = Number(event.target.value)
+
+    setTest(copyTest);
+  };
+
+  const checkTest = () => {
+    const copyTest = { ...test }
+
+    if (copyTest.question1.chosenValue === copyTest.question1.value) {
+      copyTest.question1.right = true
+    } else { copyTest.question1.right = false }
+
+    if (copyTest.question2.chosenValue === copyTest.question2.value) {
+      copyTest.question2.right = true
+    } else { copyTest.question2.right = false }
+
+    if (copyTest.question3.chosenValue === copyTest.question3.value) {
+      copyTest.question3.right = true
+    } else { copyTest.question3.right = false }
+
+    setTest(copyTest)
+  }
+
+  return (
+    <Box
+      className={classes.root}
+    >
+      <Typography>
+        TEST
+      </Typography>
+      {TESTS.map((questions) =>
+        <Box>
+          {questions.question}
+          <RadioGroup
+            onChange={handleChange}
+            name={questions.question}
+            className={
+              test[questions.question].right === null ?
+                false : test[questions.question].right === true ?
+                  classes.good : classes.bad
+            }
+          >
+            {questions.answers.map((value, key) =>
+              <FormControlLabel
+                value={++key}
+                control={<Radio />}
+                label={value}
+              />
+            )}
+          </RadioGroup>
+        </Box>
+      )
+      }
+      <Button
+        onClick={checkTest}
+      >
+        Проверить тест
+      </Button>
+    </Box >
+  )
+}
+
+export default Task16Func
