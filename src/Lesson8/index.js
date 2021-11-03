@@ -1532,124 +1532,129 @@ import { Typography } from 'antd';
 //   )
 // }
 
-const TESTS = [
-  {
-    question: "question1",
-    answers: [
-      'Ответ 1',
-      'Ответ 2',
-      'Ответ 3',
-      'Ответ 4',
-      'Ответ 5',
-    ],
-    right: 3,
-  },
-  {
-    question: "question2",
-    answers: [
-      'Ответ 1',
-      'Ответ 2',
-      'Ответ 3',
-      'Ответ 4',
-      'Ответ 5',
-    ],
-    right: 5,
-  },
-  {
-    question: "question3",
-    answers: [
-      'Ответ 1',
-      'Ответ 2',
-      'Ответ 3',
-      'Ответ 4',
-      'Ответ 5',
-    ],
-    right: 1,
-  }
-]
-
-
 const Task16Func = () => {
   const classes = useStyles()
-  const [test, setTest] = useState({
-    question1: {
-      value: 3,
+  const [test, setTest] = useState([
+    {
+      question: "question1",
+      answers: [
+        {
+          lable: 'Ответ 1',
+          id: 1
+        },
+        {
+          lable: 'Ответ 2',
+          id: 2
+        },
+        {
+          lable: 'Ответ 3',
+          id: 3
+        },
+        {
+          lable: 'Ответ 4',
+          id: 4
+        },
+        {
+          lable: 'Ответ 5',
+          id: 5
+        }
+      ],
       chosenValue: null,
-      right: null
+      right: 1
     },
-    question2: {
-      value: 5,
+    {
+      question: "question2",
+      answers: [
+        {
+          lable: 'Ответ 1',
+          id: 1
+        },
+        {
+          lable: 'Ответ 2',
+          id: 2
+        },
+        {
+          lable: 'Ответ 3',
+          id: 3
+        },
+        {
+          lable: 'Ответ 4',
+          id: 4
+        },
+        {
+          lable: 'Ответ 5',
+          id: 5
+        }
+      ],
       chosenValue: null,
-      right: null
+      right: 3
     },
-    question3: {
-      value: 1,
+    {
+      question: "question3",
+      answers: [
+        {
+          lable: 'Ответ 1',
+          id: 1
+        },
+        {
+          lable: 'Ответ 2',
+          id: 2
+        },
+        {
+          lable: 'Ответ 3',
+          id: 3
+        },
+        {
+          lable: 'Ответ 4',
+          id: 4
+        },
+        {
+          lable: 'Ответ 5',
+          id: 5
+        }
+      ],
       chosenValue: null,
-      right: null
+      right: 5
     }
-  })
+  ])
 
   const handleChange = (event) => {
-    const copyTest = { ...test }
+    const copyTest = [...test]
 
-    copyTest[event.target.name].chosenValue = Number(event.target.value)
+    copyTest.find(item => (
+      item.question == event.target.name)
+    ).chosenValue = Number(event.target.value)
 
     setTest(copyTest);
   };
 
-  const checkTest = () => {
-    const copyTest = { ...test }
-
-    if (copyTest.question1.chosenValue === copyTest.question1.value) {
-      copyTest.question1.right = true
-    } else { copyTest.question1.right = false }
-
-    if (copyTest.question2.chosenValue === copyTest.question2.value) {
-      copyTest.question2.right = true
-    } else { copyTest.question2.right = false }
-
-    if (copyTest.question3.chosenValue === copyTest.question3.value) {
-      copyTest.question3.right = true
-    } else { copyTest.question3.right = false }
-
-    setTest(copyTest)
-  }
 
   return (
     <Box
       className={classes.root}
     >
-      <Typography>
+      <Typography className={classes.test}>
         TEST
       </Typography>
-      {TESTS.map((questions) =>
-        <Box>
-          {questions.question}
+      {test.map((question) =>
+        <Box className={classes.question}>
+          {question.question}
           <RadioGroup
             onChange={handleChange}
-            name={questions.question}
-            className={
-              test[questions.question].right === null ?
-                false : test[questions.question].right === true ?
-                  classes.good : classes.bad
-            }
+            name={question.question}
           >
-            {questions.answers.map((value, key) =>
+            {question.answers.map((answer) =>
               <FormControlLabel
-                value={++key}
+                // style={{ color: getItemColor(question.right, answer.id, question.chosenValue) }}
+                value={answer.id}
                 control={<Radio />}
-                label={value}
+                label={answer.lable}
               />
             )}
           </RadioGroup>
         </Box>
       )
       }
-      <Button
-        onClick={checkTest}
-      >
-        Проверить тест
-      </Button>
     </Box >
   )
 }
