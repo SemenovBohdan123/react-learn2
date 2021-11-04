@@ -13,6 +13,7 @@ import { Box, RadioGroup, FormControlLabel, Button, Radio, } from '@mui/material
 // import { number } from 'yup';
 import useStyles from './styles';
 import { Typography } from 'antd';
+import { green } from '@mui/material/colors';
 
 
 
@@ -1628,6 +1629,9 @@ const Task16Func = () => {
     setTest(copyTest);
   };
 
+  const getItemColor = (right, id, chosenValue) => {
+    return (chosenValue !== id ? 'black' : chosenValue === right ? 'green' : 'red')
+  }
 
   return (
     <Box
@@ -1645,7 +1649,7 @@ const Task16Func = () => {
           >
             {question.answers.map((answer) =>
               <FormControlLabel
-                // style={{ color: getItemColor(question.right, answer.id, question.chosenValue) }}
+                style={{ color: getItemColor(question.right, answer.id, question.chosenValue) }}
                 value={answer.id}
                 control={<Radio />}
                 label={answer.lable}
