@@ -62,12 +62,12 @@ const USERS = [
   },
   {
     age: 20,
-    name: 'Bohdan',
+    name: 'Artem',
     lastName: 'Semenov'
   },
   {
     age: 30,
-    name: 'Bohdan',
+    name: 'David',
     lastName: 'Semenov'
   }
 ]
@@ -81,6 +81,7 @@ const TableOfUsers = ({ data, showMasage }) => {
             <TableCell >Name</TableCell>
             <TableCell >Last name</TableCell>
             <TableCell >Age</TableCell>
+            <TableCell >Href</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,6 +90,7 @@ const TableOfUsers = ({ data, showMasage }) => {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.lastName}</TableCell>
               <TableCell>{user.age}</TableCell>
+              <TableCell><a onClick={() => showMasage(user.name)}>Click</a></TableCell>
             </TableRow>
           )}
         </TableBody>
@@ -105,8 +107,8 @@ const TableOfUsers = ({ data, showMasage }) => {
 const Task2 = () => {
   const [users, setUsers] = useState(USERS)
 
-  const showMasage = () => {
-    alert('!')
+  const showMasage = (name) => {
+    alert(name)
   }
 
   return (
@@ -116,5 +118,6 @@ const Task2 = () => {
     />
   )
 }
+
 
 export default Task2
