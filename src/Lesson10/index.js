@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@mui/material';
 
 // const USERS = [
@@ -191,28 +191,99 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //   )
 // }
 
+// const USERS = [
+//   {
+//     id: 1,
+//     age: 10,
+//     name: 'Bohdan',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     id: 2,
+//     age: 20,
+//     name: 'Artem',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     id: 3,
+//     age: 30,
+//     name: 'David',
+//     lastName: 'Semenov'
+//   }
+// ]
+
+// const TableOfUsers = ({ data, showMasage }) => {
+//   return (
+//     <Box>
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell >Name</TableCell>
+//             <TableCell >Last name</TableCell>
+//             <TableCell >Age</TableCell>
+//             <TableCell >Href</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((user) =>
+//             <TableRow>
+//               <TableCell>{user.name}</TableCell>
+//               <TableCell>{user.lastName}</TableCell>
+//               <TableCell>{user.age}</TableCell>
+//               <TableCell>
+//                 <a
+//                   onClick={() => showMasage(user.id)}
+//                 >
+//                   Click
+//                 </a>
+//               </TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//         <Button
+//           onClick={showMasage}
+//         >
+//           Show Masage
+//         </Button>
+//       </Table>
+//     </Box>
+//   )
+// }
+
+// const Task4 = () => {
+//   const [users, setUsers] = useState(USERS)
+
+//   const showMasage = (id) => {
+//     alert(id)
+//   }
+
+//   return (
+//     <TableOfUsers
+//       data={users}
+//       showMasage={showMasage}
+//     />
+//   )
+// }
+
 const USERS = [
   {
-    id: 1,
     age: 10,
     name: 'Bohdan',
     lastName: 'Semenov'
   },
   {
-    id: 2,
     age: 20,
     name: 'Artem',
     lastName: 'Semenov'
   },
   {
-    id: 3,
     age: 30,
     name: 'David',
     lastName: 'Semenov'
   }
 ]
 
-const TableOfUsers = ({ data, showMasage }) => {
+const TableOfUsers = ({ data, deletUser }) => {
   return (
     <Box>
       <Table>
@@ -225,23 +296,23 @@ const TableOfUsers = ({ data, showMasage }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((user) =>
-            <TableRow>
+          {data.map((user, key) =>
+            <TableRow key={key}>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.lastName}</TableCell>
               <TableCell>{user.age}</TableCell>
               <TableCell>
-                <a
-                  onClick={() => showMasage(user.id)}
+                <Button
+                  onClick={() => deletUser(key)}
                 >
-                  Click
-                </a>
+                  Delet
+                </Button>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
         <Button
-          onClick={showMasage}
+          onClick={deletUser}
         >
           Show Masage
         </Button>
@@ -250,19 +321,25 @@ const TableOfUsers = ({ data, showMasage }) => {
   )
 }
 
-const Task4 = () => {
+const Task5 = () => {
+
   const [users, setUsers] = useState(USERS)
 
-  const showMasage = (id) => {
-    alert(id)
+  const deletUser = (key) => {
+    const copyUsers = [...users]
+
+    copyUsers.splice(key, 1)
+
+    setUsers(copyUsers)
   }
 
+  console.log(users);
   return (
     <TableOfUsers
       data={users}
-      showMasage={showMasage}
+      deletUser={deletUser}
     />
   )
 }
 
-export default Task4
+export default Task5
