@@ -54,6 +54,72 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //   )
 // }
 
+// const USERS = [
+//   {
+//     age: 10,
+//     name: 'Bohdan',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     age: 20,
+//     name: 'Artem',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     age: 30,
+//     name: 'David',
+//     lastName: 'Semenov'
+//   }
+// ]
+
+// const TableOfUsers = ({ data, showMasage }) => {
+//   return (
+//     <Box>
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell >Name</TableCell>
+//             <TableCell >Last name</TableCell>
+//             <TableCell >Age</TableCell>
+//             <TableCell >Href</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((user) =>
+//             <TableRow>
+//               <TableCell>{user.name}</TableCell>
+//               <TableCell>{user.lastName}</TableCell>
+//               <TableCell>{user.age}</TableCell>
+//               <TableCell><a onClick={showMasage}>Click</a></TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//         <Button
+//           onClick={showMasage}
+//         >
+//           Show Masage
+//         </Button>
+//       </Table>
+//     </Box>
+//   )
+// }
+
+// const Task2 = () => {
+//   const [users, setUsers] = useState(USERS)
+
+//   const showMasage = () => {
+//     alert('!')
+//   }
+
+//   return (
+//     <TableOfUsers
+//       data={users}
+//       showMasage={showMasage}
+//     />
+//   )
+// }
+
+
 const USERS = [
   {
     age: 10,
@@ -90,7 +156,13 @@ const TableOfUsers = ({ data, showMasage }) => {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.lastName}</TableCell>
               <TableCell>{user.age}</TableCell>
-              <TableCell><a onClick={showMasage}>Click</a></TableCell>
+              <TableCell>
+                <a
+                  onClick={() => showMasage(user.name)}
+                >
+                  Click
+                </a>
+              </TableCell>
             </TableRow>
           )}
         </TableBody>
@@ -104,11 +176,11 @@ const TableOfUsers = ({ data, showMasage }) => {
   )
 }
 
-const Task2 = () => {
+const Task3 = () => {
   const [users, setUsers] = useState(USERS)
 
-  const showMasage = () => {
-    alert('!')
+  const showMasage = (name) => {
+    alert(name)
   }
 
   return (
@@ -119,4 +191,4 @@ const Task2 = () => {
   )
 }
 
-export default Task2
+export default Task3
