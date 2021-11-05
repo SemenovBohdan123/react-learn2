@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Box, List, ListItem, TextField } from '@mui/material';
-import { Button } from 'antd';
+import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@mui/material';
 
 // const USERS = [
 //   {
@@ -326,97 +325,171 @@ import { Button } from 'antd';
 //   )
 // }
 
-const ITEMS = [
-  {
-    value: 'one',
-    showInput: false,
-    inputValue: ''
-  },
-  {
-    value: 'two',
-    showInput: false,
-    inputValue: ''
+// const ITEMS = [
+//   {
+//     value: 'one',
+//     showInput: false,
+//     inputValue: ''
+//   },
+//   {
+//     value: 'two',
+//     showInput: false,
+//     inputValue: ''
 
-  },
-  {
-    value: 'thre',
-    showInput: false,
-    inputValue: ''
-  },
-  {
-    value: 'four',
-    showInput: false,
-    inputValue: ''
-  },
-  {
-    value: 'five',
-    showInput: false,
-    inputValue: ''
-  },
-]
+//   },
+//   {
+//     value: 'thre',
+//     showInput: false,
+//     inputValue: ''
+//   },
+//   {
+//     value: 'four',
+//     showInput: false,
+//     inputValue: ''
+//   },
+//   {
+//     value: 'five',
+//     showInput: false,
+//     inputValue: ''
+//   },
+// ]
 
-const ItemsList = ({ data, addInput, changeValue }) => {
+// const ItemsList = ({ data, addInput, changeValue }) => {
 
+//   return (
+//     <Box>
+//       <List>
+//         {data.map((item, key) =>
+//           <ListItem>
+//             {item.value}
+//             {item.showInput ?
+//               <TextField
+//                 autoFocus='true'
+//                 onChange={(event) => {
+//                   data[key].inputValue = event.target.value
+//                 }}
+//                 variant="standard"
+//                 onBlur={() => changeValue(key)}
+//               /> :
+//               <Button
+//                 key={key}
+//                 onClick={() => addInput(key)}
+//               >
+//                 Редактировать
+//               </Button>
+//             }
+//           </ListItem>
+//         )}
+//       </List>
+//     </Box>
+//   )
+// }
+
+// const Task6 = () => {
+//   const [items, setItems] = useState(ITEMS)
+
+//   const addInput = (key) => {
+//     const copyItems = [...items]
+
+//     copyItems[key].showInput = true
+
+//     setItems(copyItems)
+//   }
+
+//   const changeValue = (key) => {
+//     const copyItems = [...items]
+
+//     if (copyItems[key].inputValue !== '') {
+//       copyItems[key].value = copyItems[key].inputValue
+//       copyItems[key].showInput = false
+//     } else {
+//       copyItems[key].showInput = false
+//     }
+
+//     setItems(copyItems)
+//   }
+
+//   return (
+//     <ItemsList
+//       data={items}
+//       addInput={addInput}
+//       changeValue={changeValue}
+//     />
+//   )
+// }
+
+const TableOfProducts = ({ data, deletProducts }) => {
   return (
     <Box>
-      <List>
-        {data.map((item, key) =>
-          <ListItem>
-            {item.value}
-            {item.showInput ?
-              <TextField
-                autoFocus='true'
-                onChange={(event) => {
-                  data[key].inputValue = event.target.value
-                }}
-                variant="standard"
-                onBlur={() => changeValue(key)}
-              /> :
-              <Button
-                key={key}
-                onClick={() => addInput(key)}
-              >
-                Редактировать
-              </Button>
-            }
-          </ListItem>
-        )}
-      </List>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name of products</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Full product cost</TableCell>
+            <TableCell>Delete product</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((products, key) =>
+            <TableRow>
+              <TableCell>{products.lable}</TableCell>
+              <TableCell>{products.price}</TableCell>
+              <TableCell>{products.amount}</TableCell>
+              <TableCell>{products.amount * products.price}</TableCell>
+              <TableCell>
+                <Button onClick={() => deletProducts(key)}>Delet</Button>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </Box>
   )
+
 }
 
-const Task6 = () => {
-  const [items, setItems] = useState(ITEMS)
-
-  const addInput = (key) => {
-    const copyItems = [...items]
-
-    copyItems[key].showInput = true
-
-    setItems(copyItems)
-  }
-
-  const changeValue = (key) => {
-    const copyItems = [...items]
-
-    if (copyItems[key].inputValue !== '') {
-      copyItems[key].value = copyItems[key].inputValue
-      copyItems[key].showInput = false
-    } else {
-      copyItems[key].showInput = false
+const Task7 = () => {
+  const [products, setProducts] = useState([
+    {
+      lable: 'Potatoes',
+      price: 5,
+      amount: 7
+    },
+    {
+      lable: 'Milk',
+      price: 50,
+      amount: 2
+    },
+    {
+      lable: 'Bread',
+      price: 20,
+      amount: 3
+    },
+    {
+      lable: 'Sugar',
+      price: 10,
+      amount: 1
     }
+  ])
 
-    setItems(copyItems)
+  const deletProducts = (key) => {
+    const copyProducts = [...products]
+
+    copyProducts.splice(key, 1)
+
+    setProducts(copyProducts)
   }
 
   return (
-    <ItemsList
-      data={items}
-      addInput={addInput}
-      changeValue={changeValue}
+    <TableOfProducts
+      data={products}
+      deletProducts={deletProducts}
     />
   )
 }
 
-export default Task6
+
+
+export default Task7
