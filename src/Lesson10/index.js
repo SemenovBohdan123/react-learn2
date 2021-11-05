@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, List, ListItem, TextField } from '@mui/material';
+import { Button } from 'antd';
 
 // const USERS = [
 //   {
@@ -94,11 +95,11 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //             </TableRow>
 //           )}
 //         </TableBody>
-//         <Button
+//         {/* <Button
 //           onClick={showMasage}
 //         >
 //           Show Masage
-//         </Button>
+//         </Button> */}
 //       </Table>
 //     </Box>
 //   )
@@ -157,20 +158,13 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //               <TableCell>{user.lastName}</TableCell>
 //               <TableCell>{user.age}</TableCell>
 //               <TableCell>
-//                 <a
-//                   onClick={() => showMasage(user.name)}
-//                 >
+//                 <a onClick={() => showMasage(user.name)}>
 //                   Click
 //                 </a>
 //               </TableCell>
 //             </TableRow>
 //           )}
 //         </TableBody>
-//         <Button
-//           onClick={showMasage}
-//         >
-//           Show Masage
-//         </Button>
 //       </Table>
 //     </Box>
 //   )
@@ -218,10 +212,10 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //       <Table>
 //         <TableHead>
 //           <TableRow>
-//             <TableCell >Name</TableCell>
-//             <TableCell >Last name</TableCell>
-//             <TableCell >Age</TableCell>
-//             <TableCell >Href</TableCell>
+//             <TableCell>Name</TableCell>
+//             <TableCell>Last name</TableCell>
+//             <TableCell>Age</TableCell>
+//             <TableCell>Href</TableCell>
 //           </TableRow>
 //         </TableHead>
 //         <TableBody>
@@ -231,9 +225,7 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //               <TableCell>{user.lastName}</TableCell>
 //               <TableCell>{user.age}</TableCell>
 //               <TableCell>
-//                 <a
-//                   onClick={() => showMasage(user.id)}
-//                 >
+//                 <a onClick={() => showMasage(user.id)}>
 //                   Click
 //                 </a>
 //               </TableCell>
@@ -265,81 +257,166 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //   )
 // }
 
-const USERS = [
+// const USERS = [
+//   {
+//     age: 10,
+//     name: 'Bohdan',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     age: 20,
+//     name: 'Artem',
+//     lastName: 'Semenov'
+//   },
+//   {
+//     age: 30,
+//     name: 'David',
+//     lastName: 'Semenov'
+//   }
+// ]
+
+// const TableOfUsers = ({ data, deletUser }) => {
+//   return (
+//     <Box>
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Name</TableCell>
+//             <TableCell>Last name</TableCell>
+//             <TableCell>Age</TableCell>
+//             <TableCell>Href</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((user, key) =>
+//             <TableRow key={key}>
+//               <TableCell>{user.name}</TableCell>
+//               <TableCell>{user.lastName}</TableCell>
+//               <TableCell>{user.age}</TableCell>
+//               <TableCell>
+//                 <Button onClick={() => deletUser(key)}>
+//                   Delet
+//                 </Button>
+//               </TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//       </Table>
+//     </Box>
+//   )
+// }
+
+// const Task5 = () => {
+
+//   const [users, setUsers] = useState(USERS)
+
+//   const deletUser = (key) => {
+//     const copyUsers = [...users]
+
+//     copyUsers.splice(key, 1)
+
+//     setUsers(copyUsers)
+//   }
+
+//   return (
+//     <TableOfUsers
+//       data={users}
+//       deletUser={deletUser}
+//     />
+//   )
+// }
+
+const ITEMS = [
   {
-    age: 10,
-    name: 'Bohdan',
-    lastName: 'Semenov'
+    value: 'one',
+    showInput: false,
+    inputValue: ''
   },
   {
-    age: 20,
-    name: 'Artem',
-    lastName: 'Semenov'
+    value: 'two',
+    showInput: false,
+    inputValue: ''
+
   },
   {
-    age: 30,
-    name: 'David',
-    lastName: 'Semenov'
-  }
+    value: 'thre',
+    showInput: false,
+    inputValue: ''
+  },
+  {
+    value: 'four',
+    showInput: false,
+    inputValue: ''
+  },
+  {
+    value: 'five',
+    showInput: false,
+    inputValue: ''
+  },
 ]
 
-const TableOfUsers = ({ data, deletUser }) => {
+const ItemsList = ({ data, addInput, changeValue }) => {
+
   return (
     <Box>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell >Name</TableCell>
-            <TableCell >Last name</TableCell>
-            <TableCell >Age</TableCell>
-            <TableCell >Href</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((user, key) =>
-            <TableRow key={key}>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.lastName}</TableCell>
-              <TableCell>{user.age}</TableCell>
-              <TableCell>
-                <Button
-                  onClick={() => deletUser(key)}
-                >
-                  Delet
-                </Button>
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-        <Button
-          onClick={deletUser}
-        >
-          Show Masage
-        </Button>
-      </Table>
+      <List>
+        {data.map((item, key) =>
+          <ListItem>
+            {item.value}
+            {item.showInput ?
+              <TextField
+                autoFocus='true'
+                onChange={(event) => {
+                  data[key].inputValue = event.target.value
+                }}
+                variant="standard"
+                onBlur={() => changeValue(key)}
+              /> :
+              <Button
+                key={key}
+                onClick={() => addInput(key)}
+              >
+                Редактировать
+              </Button>
+            }
+          </ListItem>
+        )}
+      </List>
     </Box>
   )
 }
 
-const Task5 = () => {
+const Task6 = () => {
+  const [items, setItems] = useState(ITEMS)
 
-  const [users, setUsers] = useState(USERS)
+  const addInput = (key) => {
+    const copyItems = [...items]
 
-  const deletUser = (key) => {
-    const copyUsers = [...users]
+    copyItems[key].showInput = true
 
-    copyUsers.splice(key, 1)
-
-    setUsers(copyUsers)
+    setItems(copyItems)
   }
 
-  console.log(users);
+  const changeValue = (key) => {
+    const copyItems = [...items]
+
+    if (copyItems[key].inputValue !== '') {
+      copyItems[key].value = copyItems[key].inputValue
+      copyItems[key].showInput = false
+    } else {
+      copyItems[key].showInput = false
+    }
+
+    setItems(copyItems)
+  }
+
   return (
-    <TableOfUsers
-      data={users}
-      deletUser={deletUser}
+    <ItemsList
+      data={items}
+      addInput={addInput}
+      changeValue={changeValue}
     />
   )
 }
 
-export default Task5
+export default Task6
