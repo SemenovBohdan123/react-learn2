@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@mui/material';
+import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button, TextField } from '@mui/material';
 
 // const USERS = [
 //   {
@@ -418,6 +418,128 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button } from '@
 //   )
 // }
 
+// const TableOfProducts = ({ data, deletProducts }) => {
+//   return (
+//     <Box>
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Name of products</TableCell>
+//             <TableCell>Price</TableCell>
+//             <TableCell>Amount</TableCell>
+//             <TableCell>Full product cost</TableCell>
+//             <TableCell>Delete product</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((products, key) =>
+//             <TableRow>
+//               <TableCell>{products.lable}</TableCell>
+//               <TableCell>{products.price}</TableCell>
+//               <TableCell>{products.amount}</TableCell>
+//               <TableCell>{products.amount * products.price}</TableCell>
+//               <TableCell>
+//                 <Button onClick={() => deletProducts(key)}>Delet</Button>
+//               </TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//       </Table>
+//     </Box>
+//   )
+
+// }
+
+// const Task7 = () => {
+//   const [products, setProducts] = useState([
+//     {
+//       lable: 'Potatoes',
+//       price: 5,
+//       amount: 7
+//     },
+//     {
+//       lable: 'Milk',
+//       price: 50,
+//       amount: 2
+//     },
+//     {
+//       lable: 'Bread',
+//       price: 20,
+//       amount: 3
+//     },
+//     {
+//       lable: 'Sugar',
+//       price: 10,
+//       amount: 1
+//     }
+//   ])
+
+//   const deletProducts = (key) => {
+//     const copyProducts = [...products]
+
+//     copyProducts.splice(key, 1)
+
+//     setProducts(copyProducts)
+//   }
+
+//   return (
+//     <TableOfProducts
+//       data={products}
+//       deletProducts={deletProducts}
+//     />
+//   )
+// }
+
+const AddNewProduct = ({ addNewProduct }) => {
+  const [newProduct, setNewProucts] = useState({
+    lable: null,
+    price: null,
+    amount: null
+  })
+
+  const handleInput = (event) => {
+    const copyNewProducts = { ...newProduct }
+
+    copyNewProducts[event.target.name] = event.target.value
+
+    setNewProucts(copyNewProducts)
+
+    console.log(newProduct);
+  }
+
+  return (
+    <Box>
+      <TextField
+        name='lable'
+        type='text'
+        variant='standard'
+        label='Name'
+        onChange={(event) => handleInput(event)}
+      />
+      <TextField
+        name='price'
+        variant='standard'
+        label='Price'
+        type='number'
+        onChange={(event) => handleInput(event)}
+      />
+      <TextField
+        name='amount'
+        variant='standard'
+        label='Amount'
+        type='number'
+        onChange={(event) => handleInput(event)}
+      />
+      <Button
+        variant='contained'
+        onClick={() => addNewProduct(newProduct)}
+      >
+        Добавить новый продукт
+      </Button>
+    </Box>
+  )
+}
+
 const TableOfProducts = ({ data, deletProducts }) => {
   return (
     <Box>
@@ -450,7 +572,7 @@ const TableOfProducts = ({ data, deletProducts }) => {
 
 }
 
-const Task7 = () => {
+const Task8 = () => {
   const [products, setProducts] = useState([
     {
       lable: 'Potatoes',
@@ -474,6 +596,14 @@ const Task7 = () => {
     }
   ])
 
+  const addNewProduct = (data) => {
+    const copyProducts = [...products]
+
+    copyProducts.push(data)
+
+    setProducts(copyProducts)
+  }
+
   const deletProducts = (key) => {
     const copyProducts = [...products]
 
@@ -483,13 +613,16 @@ const Task7 = () => {
   }
 
   return (
-    <TableOfProducts
-      data={products}
-      deletProducts={deletProducts}
-    />
+    <Box>
+      <TableOfProducts
+        data={products}
+        deletProducts={deletProducts}
+      />
+      <AddNewProduct addNewProduct={addNewProduct} />
+    </Box>
   )
 }
 
 
 
-export default Task7
+export default Task8
