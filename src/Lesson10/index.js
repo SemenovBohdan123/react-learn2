@@ -3,7 +3,8 @@ import {
   Table,
   TableHead,
   TableBody,
-  TableCell, TableRow,
+  TableCell,
+  TableRow,
   Box,
   Button,
   TextField,
@@ -797,22 +798,21 @@ import useStyles from './styles';
 //   )
 // }
 
-const TotalPrice = ({ data }) => {
+function TotalPrice({ data }) {
 
-  const classes = useStyles()
+  const classes = useStyles();
 
 
   const arrTotalPrice = (data) => {
-    const arr = data.map((product) =>
-      product.isCheked ? (product.amount * product.price) : false)
-    return arr
-  }
+    const arr = data.map((product) => product.isCheked ? (product.amount * product.price) : false);
+    return arr;
+  };
 
   const getTotalPrice = () => {
     return (
       arrTotalPrice(data).reduce((acum, current) => acum + current, 0)
-    )
-  }
+    );
+  };
 
   return (
     <Box>
@@ -820,7 +820,7 @@ const TotalPrice = ({ data }) => {
         Price all products: {getTotalPrice()}
       </Typography>
     </Box>
-  )
+  );
 }
 
 const AddNewProduct = ({ addNewProduct }) => {
