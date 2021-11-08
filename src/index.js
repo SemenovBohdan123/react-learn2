@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Lesson9 from './lesson9';
+import Lesson10 from './Lesson10';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -10,7 +10,7 @@ import 'antd/dist/antd.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Lesson9 />
+    <Lesson10 />
   </React.StrictMode>,
   document.getElementById('root')
 );
