@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button, TextField, Typography, List, ListItem } from '@mui/material';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableCell, TableRow,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Checkbox
+} from '@mui/material';
+import useStyles from './styles';
 
 // const USERS = [
 //   {
@@ -627,10 +638,173 @@ import { Table, TableHead, TableBody, TableCell, TableRow, Box, Button, TextFiel
 // }
 
 
+// const TotalPrice = ({ data }) => {
+
+//   const arrTotalPrice = (data) => {
+//     const arr = data.map((product) => product.amount * product.price)
+//     return arr
+//   }
+
+//   const getTotalPrice = () => {
+//     return (
+//       arrTotalPrice(data).reduce((acum, current) => acum + current, 0)
+//     )
+//   }
+
+//   return (
+//     <Box>
+//       <Typography>
+//         Price all products: {getTotalPrice()}
+//       </Typography>
+//     </Box>
+//   )
+// }
+
+// const AddNewProduct = ({ addNewProduct }) => {
+//   const [newProduct, setNewProucts] = useState({
+//     lable: null,
+//     price: null,
+//     amount: null
+//   })
+
+//   const handleInput = (event) => {
+//     const copyNewProducts = { ...newProduct }
+
+//     copyNewProducts[event.target.name] = event.target.value
+
+//     setNewProucts(copyNewProducts)
+
+//   }
+
+//   return (
+//     <Box>
+//       <TextField
+//         name='lable'
+//         type='text'
+//         variant='standard'
+//         label='Name'
+//         onChange={(event) => handleInput(event)}
+//       />
+//       <TextField
+//         name='price'
+//         variant='standard'
+//         label='Price'
+//         type='number'
+//         onChange={(event) => handleInput(event)}
+//       />
+//       <TextField
+//         name='amount'
+//         variant='standard'
+//         label='Amount'
+//         type='number'
+//         onChange={(event) => handleInput(event)}
+//       />
+//       <Button
+//         variant='contained'
+//         onClick={() => addNewProduct(newProduct)}
+//       >
+//         Добавить новый продукт
+//       </Button>
+//     </Box>
+//   )
+// }
+
+// const TableOfProducts = ({ data, deletProducts }) => {
+//   return (
+//     <Box>
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Name of products</TableCell>
+//             <TableCell>Price</TableCell>
+//             <TableCell>Amount</TableCell>
+//             <TableCell>Full product cost</TableCell>
+//             <TableCell>Delete product</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((products, key) =>
+//             <TableRow>
+//               <TableCell>{products.lable}</TableCell>
+//               <TableCell>{products.price}</TableCell>
+//               <TableCell>{products.amount}</TableCell>
+//               <TableCell>{products.amount * products.price}</TableCell>
+//               <TableCell>
+//                 <Button onClick={() => deletProducts(key)}>
+//                   Delet
+//                 </Button>
+//               </TableCell>
+//             </TableRow>
+//           )}
+//         </TableBody>
+//       </Table>
+//     </Box>
+//   )
+
+// }
+
+// const Task9 = () => {
+//   const [products, setProducts] = useState([
+//     {
+//       lable: 'Potatoes',
+//       price: 5,
+//       amount: 7,
+//     },
+//     {
+//       lable: 'Milk',
+//       price: 50,
+//       amount: 2
+//     },
+//     {
+//       lable: 'Bread',
+//       price: 20,
+//       amount: 3
+//     },
+//     {
+//       lable: 'Sugar',
+//       price: 10,
+//       amount: 1,
+//     }
+//   ])
+
+//   const addNewProduct = (data) => {
+//     const copyProducts = [...products]
+//     if (data.amount && data.lable && data.price) {
+
+//       copyProducts.push(data)
+
+//       setProducts(copyProducts)
+//     }
+// }
+
+//   const deletProducts = (key) => { 
+//     const copyProducts = [...products]
+
+//     copyProducts.splice(key, 1)
+
+//     setProducts(copyProducts)
+//   }
+
+//   return (
+//     <Box>
+//       <TableOfProducts
+//         data={products}
+//         deletProducts={deletProducts}
+//       />
+//       <TotalPrice data={products} />
+//       <AddNewProduct addNewProduct={addNewProduct} />
+//     </Box>
+//   )
+// }
+
 const TotalPrice = ({ data }) => {
 
+  const classes = useStyles()
+
+
   const arrTotalPrice = (data) => {
-    const arr = data.map((product) => product.amount * product.price)
+    const arr = data.map((product) =>
+      product.isCheked ? (product.amount * product.price) : false)
     return arr
   }
 
@@ -653,7 +827,8 @@ const AddNewProduct = ({ addNewProduct }) => {
   const [newProduct, setNewProucts] = useState({
     lable: null,
     price: null,
-    amount: null
+    amount: null,
+    isCheked: true
   })
 
   const handleInput = (event) => {
@@ -662,8 +837,6 @@ const AddNewProduct = ({ addNewProduct }) => {
     copyNewProducts[event.target.name] = event.target.value
 
     setNewProucts(copyNewProducts)
-
-    console.log(newProduct);
   }
 
   return (
@@ -699,7 +872,7 @@ const AddNewProduct = ({ addNewProduct }) => {
   )
 }
 
-const TableOfProducts = ({ data, deletProducts }) => {
+const TableOfProducts = ({ data, deletProducts, changeCheked }) => {
   return (
     <Box>
       <Table>
@@ -709,6 +882,7 @@ const TableOfProducts = ({ data, deletProducts }) => {
             <TableCell>Price</TableCell>
             <TableCell>Amount</TableCell>
             <TableCell>Full product cost</TableCell>
+            <TableCell></TableCell>
             <TableCell>Delete product</TableCell>
           </TableRow>
         </TableHead>
@@ -720,7 +894,15 @@ const TableOfProducts = ({ data, deletProducts }) => {
               <TableCell>{products.amount}</TableCell>
               <TableCell>{products.amount * products.price}</TableCell>
               <TableCell>
-                <Button onClick={() => deletProducts(key)}>
+                <Checkbox
+                  name={products.lable}
+                  onClick={() => changeCheked(key)}
+                  checked={products.isCheked}
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  onClick={() => deletProducts(key)}>
                   Delet
                 </Button>
               </TableCell>
@@ -733,36 +915,44 @@ const TableOfProducts = ({ data, deletProducts }) => {
 
 }
 
-const Task9 = () => {
+const Task10 = () => {
+  const classes = useStyles()
   const [products, setProducts] = useState([
     {
       lable: 'Potatoes',
       price: 5,
       amount: 7,
+      isCheked: true
     },
     {
       lable: 'Milk',
       price: 50,
-      amount: 2
+      amount: 2,
+      isCheked: true
     },
     {
       lable: 'Bread',
       price: 20,
-      amount: 3
+      amount: 3,
+      isCheked: true
     },
     {
       lable: 'Sugar',
       price: 10,
       amount: 1,
+      isCheked: true
     }
   ])
 
   const addNewProduct = (data) => {
     const copyProducts = [...products]
 
-    copyProducts.push(data)
+    if (data.amount && data.lable && data.price) {
 
-    setProducts(copyProducts)
+      copyProducts.push(data)
+
+      setProducts(copyProducts)
+    }
   }
 
   const deletProducts = (key) => {
@@ -773,11 +963,20 @@ const Task9 = () => {
     setProducts(copyProducts)
   }
 
+  const changeCheked = (key) => {
+    const copyProducts = [...products]
+
+    copyProducts[key].isCheked = !copyProducts[key].isCheked
+
+    setProducts(copyProducts)
+  }
+
   return (
-    <Box>
+    <Box className={classes.root}>
       <TableOfProducts
         data={products}
         deletProducts={deletProducts}
+        changeCheked={changeCheked}
       />
       <TotalPrice data={products} />
       <AddNewProduct addNewProduct={addNewProduct} />
@@ -787,4 +986,4 @@ const Task9 = () => {
 
 
 
-export default Task9
+export default Task10
